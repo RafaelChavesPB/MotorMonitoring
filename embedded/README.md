@@ -1,1 +1,0 @@
-# MotorMonitoring-Embedded
