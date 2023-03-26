@@ -2,7 +2,6 @@ from flask import Flask, request
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 from datetime import datetime
-from random import randint
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
