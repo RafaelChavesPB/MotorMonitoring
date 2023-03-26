@@ -10,12 +10,12 @@ socketio = SocketIO(app, cors_allowed_origins='*')
 
 
 @app.get('/')
-def get_index():
+def index():
     return 'Olá! Este é o backend da aplicação motormonitoring.'
 
 
 @app.post('/')
-def get_post():
+def data_post():
     data = request.get_json()
     current = int(data.get('current', 0))
     voltage = int(data.get('voltage', 0))
