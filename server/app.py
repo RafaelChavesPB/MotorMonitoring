@@ -10,7 +10,7 @@ CORS(app)
 socketio = SocketIO(app, cors_allowed_origins='*')
 
 
-@app.get('/', methods=['GET'])
+@app.get('/')
 def get_index():
     return 'Olá! Este é o backend da aplicação motormonitoring.'
 
@@ -27,4 +27,4 @@ def get_post():
 
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True, host='0.0.0.0')
+    socketio.run(app, debug=True, host='0.0.0.0', port=5000)
