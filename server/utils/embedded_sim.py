@@ -8,7 +8,7 @@ while True:
         requests.post('http://localhost:5000/', json=data,)
         print(
             f"At {time.ctime()} - Current: { data['current']} A, Voltage: { data['voltage']} V")
-        time.sleep(10)
+        time.sleep(5)
     except KeyError:
         break
     except:
