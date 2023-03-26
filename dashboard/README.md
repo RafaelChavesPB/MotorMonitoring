@@ -1,4 +1,4 @@
-# motormonitoring-front
+# MotorMonitoring-Dashboard
 
 ## Project setup
 ```
