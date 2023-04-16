@@ -4,7 +4,7 @@ import random
 print('Inicializando simulação de subsistema de monitoramento (Ctrl^C p/ Sair): ')
 while True:
     try:
-        data = {'current': random.random()*10, 'voltage': random.random()*220}
+        data = {'current': 4.5+random.random(), 'voltage': 220+random.random()*10}
         requests.post('http://localhost:5000/', json=data,)
         print(
             f"At {time.ctime()} - Current: { data['current']} A, Voltage: { data['voltage']} V")

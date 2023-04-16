@@ -39,6 +39,11 @@ export default {
           y: {
             beginAtZero: true,
           },
+          x: {
+            ticks:{
+              display: false
+            }
+          }
         },
       },
     };

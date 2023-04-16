@@ -17,13 +17,12 @@ def index():
 @app.post('/')
 def data_post():
     data = request.get_json()
-    current = int(data.get('current', 0))
-    voltage = int(data.get('voltage', 0))
+    current = float(data.get('current', 0))
+    voltage = float(data.get('voltage', 0))
     time = datetime.now().strftime("%H:%M:%S")
     data = {'current': current, 'voltage': voltage, 'time': time}
     socketio.emit('incoming_data', data)
     return '200'
-
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, allow_unsafe_werkzeug=True, host='0.0.0.0', port=5000)
