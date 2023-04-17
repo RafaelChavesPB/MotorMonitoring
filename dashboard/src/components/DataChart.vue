@@ -1,67 +1,62 @@
 <template>
-  <div>
-    <LineChart id="my-chart-id" :options="chartOptions" :data="chartData" />
-  </div>
+  <v-card color="#525977" class="card" rounded="10">
+    <canvas ref="chart"> </canvas>
+  </v-card>
 </template>
 
 <script>
-import { Line } from "vue-chartjs";
-import {
-  Chart as ChartJS,
-  Title,
-  Tooltip,
-  Legend,
-  PointElement,
-  LineElement,
-  CategoryScale,
-  LinearScale,
-} from "chart.js";
-
-ChartJS.register(
-  Title,
-  Tooltip,
-  Legend,
-  PointElement,
-  LineElement,
-  CategoryScale,
-  LinearScale
-);
-
+import { Chart, registerables } from "chart.js";
 export default {
-  name: "DataChart",
-  components: { LineChart: Line },
-  props: ["values", "time", "label"],
+  props: ["chartData"],
   data() {
     return {
-      chartOptions: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true,
-          },
-          x: {
-            ticks:{
-              display: false
-            }
-          }
-        },
-      },
+      chart: null,
     };
   },
-  computed: {
-    chartData() {
-      return {
-        datasets: [
-          {
-            label: this.label,
-            data: this.values,
-            cubicInterpolationMode: "monotone",
-            tension: 0.4,
+  watch: {
+    chartData(){
+        if(this.chart){
+            this.chart.data.labels = this.chartData.labels
+            this.updateDatasets(this.chartData.datasets)
+            this.chart.update()
+        }
+    }
+  },
+  methods:{
+    updateDatasets(newDatasets){
+      for(let i in newDatasets){
+        this.chart.data.datasets[i].data = newDatasets[i].data;
+      }
+    }
+  },
+  mounted() {
+    const ctx = this.$refs.chart;
+
+    Chart.register(...registerables);
+    this.chart = new Chart(ctx, {
+      type: "line",
+      data: this.chartData,
+      responsive: true,
+      options:{
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+            x: {
+              ticks: {
+                display: false,
+              },
+            },
           },
-        ],
-        labels: this.time,
-      };
-    },
+      }
+    });
   },
 };
 </script>
+
+<style>
+.card {
+    margin: 10px;
+    padding: 20px;    
+}
+</style>

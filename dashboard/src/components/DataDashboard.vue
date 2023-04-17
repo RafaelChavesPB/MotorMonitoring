@@ -1,7 +1,11 @@
 <template>
-  <v-row>
-    <v-col> <DataChart :values="current" :time="time" label="Current" /> </v-col>
-    <v-col> <DataChart :values="voltage" :time="time" label="Voltage"/> </v-col>
+  <v-row no-gutters>
+    <v-col>
+      <DataChart  :chartData="chartData(current, time, 'Corrente')"/>
+    </v-col>
+    <v-col>
+      <DataChart  :chartData="chartData(voltage, time, 'Tensão')"/>
+    </v-col>
   </v-row>
 </template>
 
@@ -37,6 +41,19 @@ export default {
       this.current.push(params.current);
       this.voltage.push(params.voltage);
       this.time.push(params.time);
+    },
+    chartData(values, labels, legend) {
+      return {
+        datasets: [
+          {
+            label: legend,
+            data: values,
+            cubicInterpolationMode: "monotone",
+            tension: 0.4,
+          },
+        ],
+        labels: labels,
+      };
     },
   },
 };
